@@ -1,0 +1,112 @@
+<breadcrumb></breadcrumb>
+<div class="matero-row" fxLayout="row wrap">
+  <div class="matero-col" fxFlex= "100">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Configuración
+          </mat-panel-title>
+          <mat-panel-description>
+            {{rangoFecha.inicio | date:'mediumDate'}} - {{rangoFecha.fin | date:'mediumDate'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-card>
+            <mat-card-title>Rango de fechas mostrado</mat-card-title>
+            <mat-card-content>
+              <mat-grid-list cols="2" rowHeight="60px">
+                <mat-grid-tile>
+                  <mat-form-field>
+                      <input matInput [matDatepicker]="dateStart" placeholder="Fecha Inicio" [(ngModel)]="rangoFecha.inicio">
+                      <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+                      <mat-datepicker #dateStart></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="dateEnd" placeholder="Fecha Fin" [(ngModel)]="rangoFecha.fin">
+                    <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+                    <mat-datepicker #dateEnd></mat-datepicker>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "2">
+                      <button (click)="setDate()" mat-raised-button class="bg-green-500 text-white">Actualizar</button>
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan = "2" *ngIf="loading">
+                    <mat-progress-bar mode=indeterminate></mat-progress-bar>
+                  </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card-content>
+          </mat-card>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="matero-col" fxFlex= "100">
+      <mat-card>
+          <mat-card-subtitle>Tickets vendidos por día</mat-card-subtitle>
+          <mat-card-content>
+            <div id="chart1"></div>
+          </mat-card-content>
+        </mat-card>
+  </div>
+  <div class="matero-col" fxFlex="100" fxFlex.gt-sm="80" fxLayout="row wrap">
+      <div class="matero-col" fxFlex="100">
+          <mat-card>
+            <mat-card-subtitle>Familias ⭐️</mat-card-subtitle>
+            <mat-card-content>
+              <div id="chart2"></div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="matero-col" fxFlex="100">
+            <mat-card>
+              <mat-card-subtitle>Formas de pago ⭐️</mat-card-subtitle>
+              <mat-card-content>
+                <div id="chart3"></div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+  </div>
+  <div class="matero-col" fxFlex="100" fxFlex.gt-sm="20" fxLayout="row wrap">
+      <div class="matero-col" fxFlex="50" fxFlex.gt-sm="100">
+          <mat-card class="bg-indigo-500 text-white">
+            <mat-card-title class="f-s-12 f-w-100">Total</mat-card-title>
+            <mat-card-content>
+              <h2>{{dataSourceTickets.total.costoTotal | currency}}</h2>
+              <mini-progress [value]="100"></mini-progress>
+              <small class="text-muted">{{dataSourceTickets.total.ticketsCount}} Tickets</small>
+            </mat-card-content>
+          </mat-card>
+      </div>
+      <div class="matero-col" fxFlex="50" fxFlex.gt-sm="100">
+          <mat-card class="bg-deep-purple-500 text-white">
+            <mat-card-title class="f-s-12 f-w-100">Día</mat-card-title>
+            <mat-card-content>
+              <h2>{{dataSourceTickets.diario.costoTotal | currency}}</h2>
+              <mini-progress [value]="100"></mini-progress>
+              <small class="text-muted">{{dataSourceTickets.diario.ticketsCount}} Tickets</small>
+            </mat-card-content>
+          </mat-card>
+      </div>
+      <div class="matero-col" fxFlex="50" fxFlex.gt-sm="100">
+          <mat-card class="bg-cyan-500 text-white">
+            <mat-card-title class="f-s-12 f-w-100">Semana</mat-card-title>
+            <mat-card-content>
+              <h2>{{dataSourceTickets.semanal.costoTotal | currency}}</h2>
+              <mini-progress [value]="100"></mini-progress>
+              <small class="text-muted">{{dataSourceTickets.semanal.ticketsCount}} Tickets</small>
+            </mat-card-content>
+          </mat-card>
+      </div>
+      <div class="matero-col" fxFlex="50" fxFlex.gt-sm="100">
+          <mat-card class="bg-blue-500 text-white">
+            <mat-card-title class="f-s-12 f-w-100">Mes</mat-card-title>
+            <mat-card-content>
+              <h2>{{dataSourceTickets.mensual.costoTotal | currency}}</h2>
+              <mini-progress [value]="100"></mini-progress>
+              <small class="text-muted">{{dataSourceTickets.mensual.ticketsCount}} Tickets</small>
+            </mat-card-content>
+          </mat-card>
+      </div>
+  </div>
+</div>

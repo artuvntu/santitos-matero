@@ -1,5 +1,17 @@
 {
   "menu": [{
+      "state": "graficas",
+      "name": "Graficas",
+      "type": "link",
+      "icon": "donut_small"
+    },
+    {
+      "state": "ventas",
+      "name": "Ventas",
+      "type": "link",
+      "icon": "store"
+    },
+    {
       "state": "dashboard",
       "name": "Dashboard",
       "type": "link",

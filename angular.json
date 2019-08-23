@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-matero": {
+    "santitos-pos": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ng-matero",
+            "outputPath": "dist/santitos-pos",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,14 +68,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-matero:build"
+            "browserTarget": "santitos-pos:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-matero:build:production"
+              "browserTarget": "santitos-pos:build:production"
             },
             "hmr": {
-              "browserTarget": "ng-matero:build:hmr",
+              "browserTarget": "santitos-pos:build:hmr",
               "hmr": true
             }
           }
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-matero:build"
+            "browserTarget": "santitos-pos:build"
           }
         },
         "test": {
@@ -121,7 +121,7 @@
         }
       }
     },
-    "ng-matero-e2e": {
+    "santitos-pos-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -130,11 +130,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng-matero:serve"
+            "devServerTarget": "santitos-pos:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-matero:serve:production"
+              "devServerTarget": "santitos-pos:serve:production"
             }
           }
         },
@@ -150,5 +150,5 @@
       }
     }
   },
-  "defaultProject": "ng-matero"
+  "defaultProject": "santitos-pos"
 }

@@ -18,6 +18,9 @@ export function StartupServiceFactory(startupService: StartupService) {
 import { FormlyModule } from '@ngx-formly/core';
 import { ToastrModule } from 'ngx-toastr';
 
+// Electron
+import { NgxElectronModule } from 'ngx-electron';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -30,6 +33,7 @@ import { ToastrModule } from 'ngx-toastr';
     RoutesModule,
     FormlyModule.forRoot(),
     ToastrModule.forRoot(),
+    NgxElectronModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

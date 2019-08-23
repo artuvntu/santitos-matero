@@ -8,12 +8,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './sessions/login/login.component';
 import { RegisterComponent } from './sessions/register/register.component';
 
+import { GraficasComponent } from './graficas/graficas.component';
+import { VentasComponent } from './ventas/ventas.component';
+
 const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'graficas', pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -25,6 +28,17 @@ const routes: Routes = [
           import('./sessions/sessions.module').then(m => m.SessionsModule),
         data: { title: 'Sessions', titleI18n: 'Sessions' },
       },
+      {
+        path: 'graficas',
+        component: GraficasComponent,
+        data: {title: 'Graficas', titleI18n: 'Graficas'}
+      },
+      {
+        path: 'ventas',
+        component: VentasComponent,
+        data: {title: 'Ventas', titleI18n: 'Ventas'}
+      },
+      { path: '**', redirectTo: 'graficas' },
     ],
   },
   {
@@ -43,7 +57,6 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '**', redirectTo: 'dashboard' },
 ];
 
 @NgModule({
