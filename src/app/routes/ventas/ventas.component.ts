@@ -9,5 +9,8 @@ import { ElectronService } from 'ngx-electron';
 export class VentasComponent implements OnInit, AfterViewInit {
     constructor(private electron: ElectronService) { }
     ngOnInit() { }
-    ngAfterViewInit() { }
+    ngAfterViewInit() {
+        this.electron.ipcRenderer.send('vts-getCorte');
+
+     }
 }

@@ -85,6 +85,39 @@ function findFamiliasPlatillosByIds(arrayFamPla,callback) {
     let arr = arrayFamPla.map(ele => new mongoose.Types.ObjectId(ele))
     DTO.FamiliaPlatillo.find({_id:{$in: arr}}).exec(callback)
 }
+/**
+ * get de currtent corte
+ * @param {(response)=>{}} completionHandled - Respuesta de la consulta
+ * @param {(err) => {}} errorHandler - En caso de error
+ */
+function findActualCorte(completionHandled, errorHandler) {
+    async.waterfall([
+        connectMongo,
+        corteNotClosed
+    ],(err, respuesta) => {
+        if (err) errorHandler(err);
+        else {
+            if (respuesta.length < 1) {
+                completionHandled({status:'nuevo'})
+            } else if (respuesta.length == 1) {
+                let corteIniciado = respuesta[0]
+                var r = {status:'single',corte:corteIniciado.toObject()} 
+                completionHandled(r)
+            } else {
+                completionHandled({status:'multiples',cortes:respuesta.map(c => c.toObject())})
+            }
+        }
+    })
+}
+/**
+ * Funtion for find cortes with flag is_close in false
+ * @param {Any} _ - any of arguments
+ * @param {(Any) => {}} callback on success action
+ */
+function corteNotClosed(_,callback) {
+    DTO.Corte.find({is_close: false}).exec(callback)
+    
+}
 function iniciarSesion(user, respuesta) {
     mongoose.connect(urlMongo,{useNewUrlParser: true},(err)=>{
         if (err) respuesta({status:respuestasIniciarSesion.fail,err:err});
@@ -126,5 +159,6 @@ function buscarUsuario(user, respuesta) {
 module.exports = {
     respuestasIniciarSesion: respuestasIniciarSesion,
     iniciarSesion: iniciarSesion,
-    infoForGraficas: infoForGraficas
+    infoForGraficas: infoForGraficas,
+    findActualCorte: findActualCorte
 }

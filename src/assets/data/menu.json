@@ -12,30 +12,54 @@
       "icon": "store"
     },
     {
-      "state": "dashboard",
-      "name": "Dashboard",
-      "type": "link",
-      "icon": "dashboard"
+      "state": "menu",
+      "name": "Menu",
+      "type": "sub",
+      "icon": "restaurant_menu",
+      "children": [
+        {
+          "state": "platillos",
+          "name": "Platillos",
+          "type": "link",
+          "icon": "fastfood"
+        },
+        {
+          "state": "adicionales",
+          "name": "Adicionales",
+          "type": "link",
+          "icon": "plus_one"
+        }
+      ]
     },
     {
-      "state": "sessions",
-      "name": "Sessions",
+      "state": "configuracion",
+      "name": "Configuracion",
+      "type": "link",
+      "icon": "build"
+    },
+    {
+      "state": "personal",
+      "name": "Personal",
+      "type": "link",
+      "icon": "people"
+    },
+    {
+      "state": "historial",
+      "name": "Historial",
       "type": "sub",
-      "icon": "question_answer",
-      "children": [{
-          "state": "403",
-          "name": "403",
-          "type": "link"
+      "icon": "history",
+      "children":[
+        {
+          "state": "historialCortes",
+          "name": "Cortes",
+          "type": "link",
+          "icon": "folder_open"
         },
         {
-          "state": "404",
-          "name": "404",
-          "type": "link"
-        },
-        {
-          "state": "500",
-          "name": "500",
-          "type": "link"
+          "state": "historialTickets",
+          "name": "Tickets",
+          "type": "link",
+          "icon": "receipt"
         }
       ]
     }

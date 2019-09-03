@@ -12,7 +12,7 @@ addDays = function(f,days) {
  * Funcion para inicializar los procesos de escucha de la seccion de graficas
  */
 function inicializar() {
-    errorHandler = (err) => {
+    errorHandlerGPX = (err) => {
         console.error(err)
     }
     electron.ipcMain.on('gpx-setDate',(event,arg) => {
@@ -33,7 +33,7 @@ function inicializar() {
             }, (platillos) => {
                 let r = platillos.map(ele => {return {type:ele.familia.name, value: ele.cantidad}})
                 event.reply('gpx-setDate-response-P',{puntos:r});
-            }, errorHandler)
+            }, errorHandlerGPX)
         }
     })
 }

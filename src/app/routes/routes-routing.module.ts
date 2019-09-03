@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './sessions/login/login.component';
 import { RegisterComponent } from './sessions/register/register.component';
 
+import { BienvenidaComponent } from './bienvenida/bienvenida.component';
 import { GraficasComponent } from './graficas/graficas.component';
 import { VentasComponent } from './ventas/ventas.component';
 
@@ -16,7 +17,7 @@ const routes: Routes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: '', redirectTo: 'graficas', pathMatch: 'full' },
+      { path: '', redirectTo: 'bienvenida', pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -29,6 +30,11 @@ const routes: Routes = [
         data: { title: 'Sessions', titleI18n: 'Sessions' },
       },
       {
+        path: 'bienvenida',
+        component: BienvenidaComponent,
+        data: {title: 'Bienvenida', titleI18n: 'Bienvenida'}
+      },
+      {
         path: 'graficas',
         component: GraficasComponent,
         data: {title: 'Graficas', titleI18n: 'Graficas'}
@@ -38,7 +44,7 @@ const routes: Routes = [
         component: VentasComponent,
         data: {title: 'Ventas', titleI18n: 'Ventas'}
       },
-      { path: '**', redirectTo: 'graficas' },
+      { path: '**', redirectTo: 'bienvenida' },
     ],
   },
   {

@@ -47,6 +47,10 @@ let corteSchema = mongoose.Schema({
     },
     cuentas: mongoose.Schema.Types.Mixed
 })
+let corteIdSchema = mongoose.Schema({
+    _id: String,
+    next_id_corte: Number
+})
 /**
  * Ticket Schema
  */
@@ -108,6 +112,7 @@ module.exports = {
     Corte: mongoose.model('cortes',corteSchema,"cortes"),
     Ticket: mongoose.model('tickets',ticketSchema,"tickets"),
     Platillo: mongoose.model('platillos',platilloSchema,"platillos"),
-    FamiliaPlatillo: mongoose.model('familias_platillos',familiaPlatilloSchema, 'familias_platillos')
+    FamiliaPlatillo: mongoose.model('familias_platillos',familiaPlatilloSchema, 'familias_platillos'),
+    CorteId: mongoose.model('corte',corteIdSchema,'cortes')
 }
 

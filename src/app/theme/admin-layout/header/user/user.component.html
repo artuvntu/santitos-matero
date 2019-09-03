@@ -1,6 +1,6 @@
 <a class="matero-user" href="javascript:void(0)" [matMenuTriggerFor]="menu">
-  <img class="r-full align-middle" src="assets/images/avatar.jpg" width="24" alt="">
-  <span class="m-l-8 align-middle">Zongbin</span>
+  <img class="r-full align-middle" src="assets/images/user.png" width="24" alt="">
+  <span class="m-l-8 align-middle">{{userName}}</span>
 </a>
 
 <mat-menu #menu="matMenu">
@@ -8,11 +8,11 @@
     <mat-icon>account_circle</mat-icon>
     <span>Profile</span>
   </a>
-  <a routerLink="/profile/settings" mat-menu-item>
+  <a mat-menu-item>
     <mat-icon>settings</mat-icon>
     <span>Settings</span>
   </a>
-  <a routerLink="/auth/login" mat-menu-item>
+  <a (click)="cerrarsesion()" mat-menu-item>
     <mat-icon>exit_to_app</mat-icon>
     <span>Logout</span>
   </a>
