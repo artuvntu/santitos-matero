@@ -1,6 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { SettingsService } from '@core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { RequestManagerService, ApiUrl } from '@core/services/requestmanager.service';
 
 @Component({
     selector: 'app-graficas',
@@ -9,8 +12,8 @@ import { SettingsService } from '@core';
 
 export class GraficasComponent implements OnInit, AfterViewInit {
     rangoFecha = {
-        inicio : new Date('2018-12-12T10:20:30Z'),
-        fin : Date()
+        fechaInicio : new Date('2018-12-12T10:20:30Z'),
+        fechaFin : Date()
     };
     loading = false;
     graficaTickets: any;
@@ -45,7 +48,7 @@ export class GraficasComponent implements OnInit, AfterViewInit {
     dataSourceFamiliaPlatillos = {
       puntos: []
     };
-    constructor(private settings: SettingsService, private electron: ElectronService) {}
+    constructor(private settings: SettingsService, private electron: ElectronService, private request: RequestManagerService) {}
 
     ngOnInit() { }
 
@@ -59,23 +62,31 @@ export class GraficasComponent implements OnInit, AfterViewInit {
         this.graficaFormasPago.chart.forceFit();
       });
       this.electron.ipcRenderer.on('gpx-setDate-response', (_: Electron.IpcRendererEvent, value: any) => {
-        this.loading = false;
-        this.dataSourceTickets = value;
-        this.graficaTickets.source(this.dataSourceTickets.puntos, {
-          date: {
-            type: 'time',
-            mask: 'MM-DD',
-          },
-        });
-        this.graficaTickets.render();
-        this.updatePieChart(value.puntosFormasPagos, this.graficaFormasPago);
+        this.setContent(value);
       });
       this.electron.ipcRenderer.on('gpx-setDate-response-P', (_: Electron.IpcRendererEvent, value: any) => {
-        this.dataSourceFamiliaPlatillos = value;
-        this.updatePieChart(value.puntos, this.graficaFamiliaPlatillos);
+        this.setContentPlatillos(value);
       });
       this.setDate();
     }
+
+    private setContent(value: any) {
+      this.loading = false;
+      this.dataSourceTickets = value;
+      this.graficaTickets.source(this.dataSourceTickets.puntos, {
+        date: {
+          type: 'time',
+          mask: 'MM-DD',
+        },
+      });
+      this.graficaTickets.render();
+      this.updatePieChart(value.puntosFormasPagos, this.graficaFormasPago);
+    }
+    private setContentPlatillos(value: any) {
+      this.dataSourceFamiliaPlatillos.puntos = value;
+      this.updatePieChart(value, this.graficaFamiliaPlatillos);
+    }
+
     updatePieChart(data: [{type: string, value: number}], chart: {chart: any, pieView: any}) {
       const DataView = DataSet.DataView;
       const userDv = new DataView();
@@ -213,7 +224,15 @@ export class GraficasComponent implements OnInit, AfterViewInit {
     }
     setDate() {
         this.loading = true;
-        this.electron.ipcRenderer.send('gpx-setDate', this.rangoFecha);
+        // this.electron.ipcRenderer.send('gpx-setDate', this.rangoFecha);
+        this.requestGraficasDate(this.rangoFecha).subscribe((res) => {
+          this.setContent(res.tickets);
+          this.setContentPlatillos(res.platillos);
+        }, (e: HttpErrorResponse) => {
+          alert(e.error.message);
+        });
     }
-
+    private requestGraficasDate(rangoFecha): Observable<any> {
+      return this.request.makeRequest(ApiUrl.graficas, 'post', rangoFecha);
+    }
 }

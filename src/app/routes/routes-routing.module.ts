@@ -12,12 +12,14 @@ import { BienvenidaComponent } from './bienvenida/bienvenida.component';
 import { GraficasComponent } from './graficas/graficas.component';
 import { VentasComponent } from './ventas/ventas.component';
 
+import { IsLoginInterceptor } from '../core/services/islogin.interceptor';
+
 const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: '', redirectTo: 'bienvenida', pathMatch: 'full' },
+      { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -44,8 +46,9 @@ const routes: Routes = [
         component: VentasComponent,
         data: {title: 'Ventas', titleI18n: 'Ventas'}
       },
-      { path: '**', redirectTo: 'bienvenida' },
+      { path: '**', redirectTo: 'auth/login' },
     ],
+    resolve: [IsLoginInterceptor],
   },
   {
     path: 'auth',
@@ -72,5 +75,6 @@ const routes: Routes = [
     }),
   ],
   exports: [RouterModule],
+  providers: [IsLoginInterceptor]
 })
 export class RoutesRoutingModule {}

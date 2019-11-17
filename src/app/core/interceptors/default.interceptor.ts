@@ -22,6 +22,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         return of(event);
       }),
       catchError((err: HttpErrorResponse) => {
+        alert(err.error.message);
         return of(err);
       })
     );

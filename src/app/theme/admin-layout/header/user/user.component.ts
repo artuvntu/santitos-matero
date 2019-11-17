@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ElectronService } from 'ngx-electron';
 import { ElementSchemaRegistry } from '@angular/compiler';
+import { AuthenticationService } from '@core/services/authentication.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-user',
@@ -9,18 +12,16 @@ import { ElementSchemaRegistry } from '@angular/compiler';
 })
 export class UserComponent implements OnInit, AfterViewInit {
   userName = '';
-  constructor(private electron: ElectronService) {}
+  constructor(private auth: AuthenticationService, private router: Router) {}
 
   ngOnInit() { }
 
   ngAfterViewInit() {
-    this.electron.ipcRenderer.on('please-user-R', ( _ , value: any) => {
-      this.userName = value.name;
-    });
-    this.electron.ipcRenderer.send('please-user');
+    const user = this.auth.getUserDetails();
+    this.userName = user.name;
   }
   cerrarsesion() {
-    console.log('hola');
-    this.electron.ipcRenderer.send('logout');
+    this.auth.logout();
+    this.router.navigateByUrl('/');
   }
 }

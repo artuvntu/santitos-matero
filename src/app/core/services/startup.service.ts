@@ -2,17 +2,19 @@ import { Injectable } from '@angular/core';
 
 import { ElectronService } from 'ngx-electron';
 import { MenuService } from './menu.service';
+import { AuthenticationService } from './authentication.service';
 
 
 @Injectable()
 export class StartupService {
-  constructor(private menuService: MenuService, private electron: ElectronService) {}
+  constructor(private menuService: MenuService, private auth: AuthenticationService) {}
 
   load(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const menu = this.electron.ipcRenderer.sendSync('get-menu');
-      this.menuService.set(menu);
-      resolve();
+      if (this.auth.isLoggedIn()) {
+        this.menuService.setMenuBy(this.auth.getUserDetails().rol);
+      }
+      resolve(true);
     });
   }
 }

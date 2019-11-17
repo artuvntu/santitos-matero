@@ -32,14 +32,111 @@ export class MenuService {
     return this.menu;
   }
 
-  set(menu: Menu[]) {
-    this.menu = this.menu.concat(menu);
-    return this.menu;
+  setMenuBy(permisos: 'admin' | 'supervisor' | 'cajero') {
+    const resultado = [];
+    if (permisos) {
+      resultado.push({
+        state: 'ventas',
+        name: 'Ventas',
+        type: 'link',
+        icon: 'store'
+      });
+      if (permisos !== 'cajero') {
+        resultado.push(...[{
+          state: 'configuracion',
+          name: 'Configuracion',
+          type: 'link',
+          icon: 'build'
+        }, {
+          state: 'historial',
+          name: 'Historial',
+          type: 'sub',
+          icon: 'history',
+          children: [
+            {
+              state: 'historialCortes',
+              name: 'Cortes',
+              type: 'link',
+              icon: 'folder_open'
+            },
+            {
+              state: 'historialTickets',
+              name: 'Tickets',
+              type: 'link',
+              icon: 'receipt'
+            }
+          ]
+        },
+        {
+          state: 'menu',
+          name: 'Menu',
+          type: 'sub',
+          icon: 'restaurant_menu',
+          children: [
+            {
+              state: 'platillos',
+              name: 'Platillos',
+              type: 'link',
+              icon: 'fastfood'
+            },
+            {
+              state: 'adicionales',
+              name: 'Adicionales',
+              type: 'link',
+              icon: 'plus_one'
+            }
+          ]
+        }]);
+        if (permisos == 'admin') {
+          resultado.push({
+            state: 'graficas',
+            name: 'Graficas',
+            'type': 'link',
+            'icon': 'donut_small'
+          }, ...[{
+            'state': 'personal',
+            'name': 'Personal',
+            'type': 'link',
+            'icon': 'people'
+          },
+          {
+            'state': 'menu',
+            'name': 'Menu',
+            'type': 'sub',
+            'icon': 'restaurant_menu',
+            'children': [
+              {
+                'state': 'platillos',
+                'name': 'Platillos',
+                'type': 'link',
+                'icon': 'fastfood'
+              },
+              {
+                'state': 'adicionales',
+                'name': 'Adicionales',
+                'type': 'link',
+                'icon': 'plus_one'
+              }
+            ]
+          }, ]);
+        }
+      }
+    }
+    this.menu = resultado;
   }
 
-  add(menu: Menu) {
-    this.menu.push(menu);
-  }
+  // set(menu: Menu[]) {
+  //   this.menu = this.menu.concat(menu);
+  //   return this.menu;
+  // }
+
+  // add(menu: Menu) {
+  //   this.menu.push(menu);
+  // }
+
+  // reset() {
+  //   this.menu = [];
+  // }
 
   getMenuItemName(stateArr: string[]): string {
     return this.getMenuLevel(stateArr)[stateArr.length - 1];

@@ -17,14 +17,14 @@
               <mat-grid-list cols="2" rowHeight="60px">
                 <mat-grid-tile>
                   <mat-form-field>
-                      <input matInput [matDatepicker]="dateStart" placeholder="Fecha Inicio" [(ngModel)]="rangoFecha.inicio">
+                      <input matInput [matDatepicker]="dateStart" placeholder="Fecha Inicio" [(ngModel)]="rangoFecha.fechaInicio">
                       <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
                       <mat-datepicker #dateStart></mat-datepicker>
                     </mat-form-field>
                 </mat-grid-tile>
                 <mat-grid-tile>
                   <mat-form-field>
-                    <input matInput [matDatepicker]="dateEnd" placeholder="Fecha Fin" [(ngModel)]="rangoFecha.fin">
+                    <input matInput [matDatepicker]="dateEnd" placeholder="Fecha Fin" [(ngModel)]="rangoFecha.fechaFin">
                     <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
                     <mat-datepicker #dateEnd></mat-datepicker>
                     </mat-form-field>

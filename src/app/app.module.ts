@@ -20,9 +20,16 @@ import { ToastrModule } from 'ngx-toastr';
 
 // Electron
 import { NgxElectronModule } from 'ngx-electron';
+import { AuthenticationService } from '@core/services/authentication.service';
+import { RequestManagerService } from '@core/services/requestmanager.service';
+import { RequestAuthService, DialogOverviewExampleDialogComponent } from '@core/services/requestauth.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    DialogOverviewExampleDialogComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,16 +41,23 @@ import { NgxElectronModule } from 'ngx-electron';
     FormlyModule.forRoot(),
     ToastrModule.forRoot(),
     NgxElectronModule,
+    MatDialogModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
     StartupService,
+    AuthenticationService,
+    RequestManagerService,
+    RequestAuthService,
     {
       provide: APP_INITIALIZER,
       useFactory: StartupServiceFactory,
       deps: [StartupService],
       multi: true,
     },
+  ],
+  entryComponents: [
+    DialogOverviewExampleDialogComponent,
   ],
   bootstrap: [AppComponent],
 })

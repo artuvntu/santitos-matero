@@ -57,12 +57,13 @@ function inicializar() {
           minHeight: 450,
           title: nombreNegocio,
           webPreferences: {
-              nodeIntegration: true
+              nodeIntegration: true,
+              webSecurity: false
           }
       }
       mainWindow = new BrowserWindow(windowOptions)
       // mainWindow.loadFile('./dist/santitos-pos/index.html')
-      mainWindow.loadURL('http://localhost:4200')
+      mainWindow.loadURL('http://localhost:4200/#/auth/login')
       mainWindow.on('closed', () => {
           mainWindow = null
           usuario = null
@@ -219,10 +220,7 @@ function inicializar() {
     event.returnValue = resultado;
   })
   app.on('ready', () => {
-      crearLoginWindow();
-      if (debug) {
-        iniciarSesion({user_id:"artuvntu",pass:"artuvntu"})     
-      }
+    crearVentana();
   })
   
   app.on('window-all-closed',() => {
@@ -232,9 +230,7 @@ function inicializar() {
   })
   app.on("activate", () => {
       if (mainWindow === null) {
-        this.usuario = null;  
-        crearLoginWindow();
-          
+        crearVentana()
       }
   })
   

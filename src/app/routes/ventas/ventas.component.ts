@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
+import { RequestAuthService } from '@core/services/requestauth.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-ventas',
@@ -7,10 +9,9 @@ import { ElectronService } from 'ngx-electron';
 })
 
 export class VentasComponent implements OnInit, AfterViewInit {
-    constructor(private electron: ElectronService) { }
+    constructor(private requestAuth: RequestAuthService) { }
     ngOnInit() { }
     ngAfterViewInit() {
-        this.electron.ipcRenderer.send('vts-getCorte');
-
+        this.requestAuth.openDialog();
      }
 }

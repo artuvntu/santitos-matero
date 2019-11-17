@@ -59,7 +59,7 @@ function findCortes(rangoFechas,callback) {
     DTO.Corte.find({close_date:{$gte:rangoFechas.inicio,$lte:rangoFechas.fin}}).exec(callback);
 }
 /**
- * used for fin tickets by corte id
+ * used for find tickets by corte id
  * @param {[mongoose.Schema.type.ObjectId]} corte 
  * @param {(err, data) => {}} callback 
  */
