@@ -1,1 +1,65 @@
 <breadcrumb></breadcrumb>
+<div class="matero-row" style="
+/* background-color: aqua; */
+height: 80vh;
+" xFlex='100'>
+    <div class="matero-col" fxFlex='40'>
+        <mat-card style="
+                height: 60%;
+                overflow-y: auto;
+            ">
+        <!-- <mat-card-subtitle>Ticktet</mat-card-subtitle> sticky-->
+        <table mat-table #ticket [dataSource]="ticketActual">
+            <ng-container matColumnDef="name" >
+                <th mat-header-cell *matHeaderCellDef> Ticket </th>
+                <td mat-cell  *matCellDef="let platillo"> {{platillo.name_ticket}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+            <tr mat-row *matRowDef="let rowData; columns: columnsToDisplay"></tr>
+        </table>
+        </mat-card>
+        <!-- Botonera -->
+        <mat-card style="
+        align-items: center;
+        height: 40%;
+        width: 100%;
+        justify-content: center;
+        flex-direction: column-reverse;
+        "  >
+            <button style="width: 100%;" mat-raised-button class="bg-cyan-500 text-white" (click)='sendTicket()' >Enviar orden</button>
+        </mat-card>
+    </div>
+    <div style="position: relative;" class="matero-col" fxFlex='30'>
+        <mat-card style="
+        max-height: 100%;
+        overflow-y: auto;
+        ">
+        <!-- <mat-card-subtitle>Platillos</mat-card-subtitle> -->
+        <table mat-table #platillo [dataSource]="platillosAvailable" style="overflow: hidden;">
+            <ng-container matColumnDef="name" >
+                <th mat-header-cell *matHeaderCellDef> Platilos </th>
+                <td mat-cell matRipple *matCellDef="let platillo"> {{platillo.name}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+            <tr mat-row *matRowDef="let rowData; columns: columnsToDisplay" (click)="selectPlatillo(rowData)"></tr>
+        </table>
+        </mat-card>
+        
+    </div>
+    <div class="matero-col" fxFlex='30'>
+        <mat-card style="
+        height: 100%;
+        overflow-y: auto;
+        "> 
+        <!-- <mat-card-subtitle>Familias</mat-card-subtitle> -->
+        <table mat-table #familia [dataSource]="familiasAvailable" style="overflow: hidden;">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Familias</th>
+                <td mat-cell matRipple *matCellDef="let familia"> {{familia.name}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: false"></tr>
+            <tr mat-row *matRowDef="let rowData; columns: columnsToDisplay" (click)="selectFamilia(rowData)"></tr>
+        </table>
+        </mat-card>
+    </div>
+</div>

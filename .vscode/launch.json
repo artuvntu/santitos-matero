@@ -32,24 +32,34 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome",
-            "url": "http://localhost:4200/",
-            "webRoot": "${workspaceFolder}",
+            "url": "http://localhost:8080/",
+            // "webRoot": "${workspaceFolder}/src/../",
             "runtimeArgs": ["--disable-web-security"],
             "sourceMaps": true,
             "trace": true,
             "sourceMapPathOverrides": {
-                "webpack:///./*": "${webRoot}/*",
-                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///./*": "${workspaceFolder}/*",
+                "webpack:///src/*": "${workspaceFolder}/*",
                 "webpack:///*": "*",
-                "webpack:///./~/*": "${webRoot}/node_modules/*",
-                "meteor://💻app/*": "${webRoot}/*"
+                "webpack:///./~/*": "${workspaceFolder}/node_modules/*",
+                "meteor://💻app/*": "${workspaceFolder}/*"
             }
         },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Chrome",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}/app/src",
+            "sourceMapPathOverrides": {
+              "webpack:///./src/*": "${webRoot}/*"
+            }
+      },
         {
             "type": "browser-preview",
             "request": "launch",
             "name": "Browser Preview: Launch",
-            "url": "http://localhost:4200/#/auth/login",
+            "url": "http://localhost:8080/#/auth/login",
             "webRoot": "${workspaceFolder}",
             "sourceMapPathOverrides": {
                 "webpack:///./*": "${webRoot}/*",

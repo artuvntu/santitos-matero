@@ -14,13 +14,13 @@ export class UserPanelComponent implements OnInit, AfterViewInit {
     const user = this.auth.getUserDetails();
     this.userName = user.name;
     switch (user.rol) {
-      case 0:
+      case 'admin':
         this.tipoUser = 'Administrador';
         break;
-      case 1:
+      case 'supervisor':
         this.tipoUser = 'Supervisor';
         break;
-      case 2:
+      case 'cajero':
         this.tipoUser = 'Cajero';
         break;
       default:

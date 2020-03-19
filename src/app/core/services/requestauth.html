@@ -1,0 +1,21 @@
+<h1 mat-dialog-title style="text-align: center;" >Hola</h1>
+<div mat-dialog-content>
+<p>Requieres autorización para la siguiente acción: {{data.descripcion}}</p>
+<form [formGroup]="reactiveForm" class="matero-form-horizontal">
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Simple placeholder" formControlName="username" required>
+        <mat-error *ngIf="reactiveForm.get('username').invalid">Usuario del supervisor</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Simple placeholder" type="password" formControlName="password" required>
+        <mat-error *ngIf="reactiveForm.get('password').invalid">Password del supervisor</mat-error>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="m-y-16">
+        <button mat-raised-button color="primary"  (click)="login()" [disabled]="reactiveForm.invalid">Login</button>
+        <button mat-raised-button color="primary"  (click)="onNoClick()">Cancelar</button>
+    </div>
+    
+</form>
+</div>

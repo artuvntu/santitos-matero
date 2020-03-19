@@ -8,7 +8,7 @@ export interface PersonalDetails {
     _id: string;
     username: string;
     name: string;
-    rol: number;
+    rol: 'admin' | 'supervisor' | 'cajero';
     exp: number;
     iat: number;
 }

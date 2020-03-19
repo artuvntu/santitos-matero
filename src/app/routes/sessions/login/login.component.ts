@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.reactiveForm.value);
     this.auth.login(this.reactiveForm.value).subscribe(() => {
       this.menuService.setMenuBy(this.auth.getUserDetails().rol);
       this.router.navigateByUrl('/bienvenida');

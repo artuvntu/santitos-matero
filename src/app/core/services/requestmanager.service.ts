@@ -5,11 +5,16 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { url } from 'inspector';
 
-const BaseURL = 'http://localhost:3000/api/'
+const BaseURL = 'http://localhost:3000/api/';
 
 export class ApiUrl {
     static base = BaseURL;
     static graficas = ApiUrl.base + 'graficas';
+    static ventas = ApiUrl.base + 'ventas/';
+    static corteActual = ApiUrl.ventas + 'corteactual';
+    static nuevoCorte = ApiUrl.ventas + 'nuevocorte';
+    static traspasarCorte = ApiUrl.ventas + 'traspasarcorte';
+    static menu = ApiUrl.ventas + 'menu';
 }
 
 @Injectable()

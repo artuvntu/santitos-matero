@@ -1,59 +1,59 @@
 import { Injectable, Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from './authentication.service';
 
 export interface DialogData {
-    animal: string;
-    name: string;
+    descripcion: string;
+    token: string;
   }
 
 @Component({
-selector: 'dialog-overview-example-dialog',
-template: `
-    <h1 mat-dialog-title>Hi {{ data.name }}</h1>
-    <div mat-dialog-content>
-    <p>What's your favorite animal?</p>
-    <mat-form-field>
-        <input matInput [(ngModel)]="data.animal" />
-    </mat-form-field>
-    </div>
-    <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>
-        Ok
-    </button>
-    </div>
-`,
+selector: 'dialog-request-auth',
+templateUrl: './requestauth.html'
 })
-export class DialogOverviewExampleDialogComponent {
-constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-) {}
+export class DialogRequestAuthComponent {
+  reactiveForm: FormGroup;
 
-onNoClick(): void {
+  constructor(public dialogRef: MatDialogRef<DialogRequestAuthComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData, private fb: FormBuilder, private auth: AuthenticationService) {
+    this.reactiveForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
+  }
+  login() {
+    this.auth.requestAuth(this.reactiveForm.value).subscribe((result) => {
+      this.data.token = result.token;
+      this.dialogRef.close(result.token);
+    }, (err) => {
+      alert(err);
+      this.dialogRef.close();
+    });
+  }
+  onNoClick(): void {
     this.dialogRef.close();
-}
+  }
 }
 
 
 
 @Injectable()
 export class RequestAuthService {
-    animal: string;
-    name: string;
+    callback?: (res?: string) => void;
+
     constructor(private dialog: MatDialog) { }
 
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
-      width: '250px',
-      data: { name: this.name, animal: this.animal },
+  openDialog(descripcion: string, callback: (res?: string) => void): void {
+    this.callback = callback;
+    const dialogRef = this.dialog.open(DialogRequestAuthComponent, {
+      width: '80%',
+      maxWidth: '400px',
+      data: {descripcion},
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-      // this.route.navigate(['/graficas']);
+      callback(result);
     });
   }
 

@@ -22,13 +22,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxElectronModule } from 'ngx-electron';
 import { AuthenticationService } from '@core/services/authentication.service';
 import { RequestManagerService } from '@core/services/requestmanager.service';
-import { RequestAuthService, DialogOverviewExampleDialogComponent } from '@core/services/requestauth.service';
+import { RequestAuthService, DialogRequestAuthComponent } from '@core/services/requestauth.service';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DialogRequestNumberComponent } from './routes/ventas/ventas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogOverviewExampleDialogComponent,
+    DialogRequestAuthComponent,
+    DialogRequestNumberComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     },
   ],
   entryComponents: [
-    DialogOverviewExampleDialogComponent,
+    DialogRequestAuthComponent,
+    DialogRequestNumberComponent
   ],
   bootstrap: [AppComponent],
 })
